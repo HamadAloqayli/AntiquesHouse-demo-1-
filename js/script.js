@@ -1,9 +1,17 @@
 
 $('.container').mixItUp();
 
-
-
+   
 //==========================
+
+function sendDateComment()
+{
+    var now = new Date();
+    var comment = document.getElementById("dateComment");
+
+    comment.value = now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+
+}
 function confirmSell()
 {
     let check = confirm('are you sure ?');

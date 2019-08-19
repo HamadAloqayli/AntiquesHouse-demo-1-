@@ -201,6 +201,7 @@ color: black;
     border-radius: 10px;
     position: relative;
 }
+.mix{     box-shadow: 100px !important;  }
 .subHolder
 {
     margin-top: -60px;

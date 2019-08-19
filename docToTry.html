@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        /* body{margin: 0; padding: 0;}
+        #page{height: 200vh; width: 100vw; margin: 0; padding: 0; background-color: #f7f1e3;
+                display: grid;
+                grid-template-rows: 20vh 150vh 30vh;
+                grid-template-columns: 30vw 70vw;
+                grid-template-areas: 
+                      "header header"
+                      "aside section"
+                      "footer footer"
+                      }
+        .header{ grid-area: header; background-color: #ffda79; }
+        .aside{ grid-area: aside; background-color: #ff5252; }
+        .section{ grid-area: section; background-color: #34ace0; }
+        .footer{ grid-area: footer; background-color: #aaa69d; }
+        .all{display: flex; justify-content: center; align-items: center; font-size: 3em} */
+
+
+        html{scroll-behavior: smooth; overflow-x: hidden;}
+
+        
+        body{ height: 200vh; width: 100vw; margin: 0; padding: 0; font-family: 'Fira Sans Condensed', sans-serif;
+        background-color: #f7f1e3}
+          /* .divMove{width: 150px; height: 150px;  border-radius: 50%; position: relative; background-color: darkred; display: inline-block; z-index: 1;}
+          .divFix{width: 150px; height: 150px;  border-radius: 50%; position: relative; border: 3px solid darkblue; display: inline-block;}
+          .pos{transition: all 0.3s ease-out} */
+                
+            #main{width: 100vw;  background: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));
+                  text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-areas:
+            ". . ."
+            ". logo ."
+            ". . ."
+            ". slide .";
+            justify-items: center;
+            align-items: end;
+            position: fixed; top: 0;
+            }
+            #about{width: 100vw; height: 100vh;}
+            .logo{grid-area: logo; margin-top: 5em;}
+            .logo h2{ font-weight: bold; margin-top: 0; transition: all 0.8s ease-in-out}
+            .logo i{font-size: 8em; display: block; text-align: center; transition: all 1s ease-in-out; position: fixed; top: 20%; left: 45%}
+            .slide{font-size: 1em; color: #dfe6e9; opacity: 0.3; grid-area: slide;
+              cursor: pointer; position: relative; top: -5%}
+            .slide h5{ font-family: 'Righteous', cursive; margin-bottom: 0}
+            .slide i{ font-size: 3em; display: block; text-align: center; }
+            #about img{width: 40vw; margin: 1em auto; height: 40vh; display: block;}
+            #space{width: 100vw; height: 100vh; background-color: wheat;}
+            
+            
+    </style>
+
+</head>
+<body>
+   
+
+<div id="space">
+        <div id="main">
+            <div class="logo">
+                    <i class="fab fa-angular"></i>
+                    <h2>Antiques&House</h2>
+            </div>
+            <div class="slide">
+            <h5>slide down</h5>
+            <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+</div>
+
+
+<div id="about">
+<h2>About</h2>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit sequi at, laudantium magni inventore nostrum quos ad suscipit totam et. Accusamus, ex debitis id fugit facilis aliquid, perferendis beatae nostrum excepturi voluptatibus, magnam voluptates veniam? Voluptatum dolorum deleniti sequi eum laborum reprehenderit et enim obcaecati ab cumque aliquam, est a expedita nisi quasi quaerat, repudiandae illo. Officiis quidem tenetur nulla, dolorem ducimus natus deserunt est. Debitis error magni ratione porro, facilis voluptatibus architecto. Sit, unde! Aut, deleniti error suscipit rerum dolor optio perspiciatis. Laudantium magnam dolores dolorem nesciunt temporibus, ipsam molestias voluptatum consequatur, ea aperiam voluptate ad obcaecati, vero iusto.</p>
+<img src="img/nature.jpg" alt="">
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <br><br><br>
+
+<div class="divMove"></div>
+
+
+    <div class="divFix"></div>
+    <div class="divFix"></div>
+    <div class="divFix"></div>
+
+
+<p class="pTarget"></p> -->
+
+
+
+
+<!-- <div id="page">
+
+<header class="header all"> <span>Header</span> </header>
+
+<aside class="aside all"> <span>Aside</span> </aside>
+
+<section class="section all"> <span>Section</span> </section>
+
+<footer class="footer all"> <span>Footer</span> </footer> 
+
+
+</div> -->
+
+
+
+
+
+   
+
+
+
+
+
+
+    <script>
+
+        const slide = document.querySelector(".slide");
+        const logo1 = document.querySelector(".logo i");
+        const text1 = document.querySelector(".logo h2");
+        const text2 = document.querySelector(".slide h5");
+        const logo2 = document.querySelector(".slide i");
+        const about = document.querySelector("#about");
+        const main = document.querySelector("#main");
+
+console.log(screen);
+console.log("window height",window.screen.height);
+console.log("about offset",about.offsetTop);
+console.log("screen availHight",screen.availHeight);
+console.log("window innerHight",window.innerHeight);
+
+var hig = window.innerHeight;
+main.style.height = hig +"px";
+        window.addEventListener("load",function(){
+
+            setInterval(function(){
+                slide.style.cssText += "top: 5%; opacity: 1; transition: all 0.5s cubic-bezier(0.5,1.6,0.4,0.7);";
+
+                setTimeout(function(){
+                    slide.style.cssText += "top: -5%; opacity: 0.3; transition: all 0.5s ease-out;";
+                },2000);
+            },4000);
+            
+        });
+
+        slide.addEventListener('click',function(){
+            main.style.cssText = "height: 10vh;";
+            slide.style.cssText ="opacity: 0;";
+                 logo1.style.cssText = "font-size: 3em; position: fixed; top: 1%; left: 48%; ";
+                  text1.style.cssText ="opacity: 0";
+        });
+
+        window.addEventListener("scroll",function(){
+            console.log(about.offsetTop,window.scrollY,main.style.height);
+            var minus = Math.ceil(window.innerHeight/12.5);
+            var hig = about.offsetTop - window.scrollY;
+            main.style.height = hig +"px";
+            if(window.scrollY >= about.offsetTop-minus)
+            {
+                main.style.cssText = "height: 8vh; ";
+            }
+        })
+      
+
+
+        // const diiv = document.querySelector(".divMove");
+        // const divFix = document.querySelectorAll(".divFix");
+        // const pTarget = document.querySelector(".pTarget")
+
+        // var X;
+        // var Y;
+        // var mouse_down = false;
+
+
+        // window.addEventListener("mousemove",function(e){
+
+        //     X = e.x;
+        //     Y = e.y;
+
+            
+                
+                 
+
+
+        //     if(mouse_down){
+        //          diiv.style.cssText += "left:"+ (X-75) +"px";
+        //          diiv.style.cssText += "top:"+ (Y-75) +"px";
+        //     }
+        // });
+
+        // diiv.addEventListener("mousedown",function(e){
+
+        //     mouse_down = true;
+        //     diiv.classList.remove("pos");
+        //         diiv.style.cssText += "left:"+ (X-75) +"px";
+        //          diiv.style.cssText += "top:"+ (Y-75) +"px";
+
+                 
+        // });
+        // diiv.addEventListener("mouseup",function(){
+            
+        //     for(let i = 0; i < divFix.length; i++)
+        //         if(X >= divFix[i].offsetLeft && X <=  divFix[i].offsetLeft+150 && mouse_down && Y >= divFix[i].offsetTop && Y <=  divFix[i].offsetTop+150){
+        //            pTarget.textContent = "Your are in "+ (i+1) +" circule";
+
+        //             diiv.classList.add("pos");
+        //            diiv.style.cssText += "left:"+ (divFix[i].offsetLeft+3) +"px";
+        //            diiv.style.cssText += "top:"+ (divFix[i].offsetTop-3) +"px";
+        //         }
+
+        //     mouse_down = false;
+        // });
+        
+       
+
+  
+
+    </script>
+</body>
+</html>

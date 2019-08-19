@@ -22,7 +22,7 @@ $result_Item = mysqli_query($con,$sql_Item);
 $result_Comment = mysqli_query($con,$sql_Comment);
 $result_ItemCart = mysqli_query($con,$sql_ItemCart);
 
-
+echo $_GET["test2"]
 ?>
 
 <!DOCTYPE html>

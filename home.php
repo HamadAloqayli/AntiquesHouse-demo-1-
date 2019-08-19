@@ -47,6 +47,14 @@ $result_ItemCart = mysqli_query($con,$sql_ItemCart);
 </head>
 <body>
 
+<?php 
+
+
+	$pwd = "test";
+	$hashpwd = password_hash("testa" , PASSWORD_DEFAULT);
+	echo password_verify($pwd,$hashpwd);
+
+?>
 
 		<nav class="navbar navbar-dark bg-dark navbar-expand-lg mt-5 stickyBar">
 

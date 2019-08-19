@@ -177,8 +177,10 @@ $result_ItemCart = mysqli_query($con,$sql_ItemCart);
 						<h6>Text:</h6>
 							<input type="text" name="textAdd" id="newText">
 						</label>
+
+						<input type="hidden" id="dateComment" name="dateComment" value="">
 							
-						<input type="submit" class="btn btn-success" value="send">
+						<input  type="submit" class="btn btn-success" value="send" onclick="sendDateComment()">
 						</form>
 			</div>
 </div>
