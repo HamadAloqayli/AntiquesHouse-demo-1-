@@ -34,30 +34,26 @@
           .divFix{width: 150px; height: 150px;  border-radius: 50%; position: relative; border: 3px solid darkblue; display: inline-block;}
           .pos{transition: all 0.3s ease-out} */
                 
-            #main{width: 100vw;  background: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));
+            #main{width: 100%;  background: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));
                   text-align: center;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr 1fr;
-            grid-template-areas:
-            ". . ."
-            ". logo ."
-            ". . ."
-            ". slide .";
-            justify-items: center;
-            align-items: end;
-            position: fixed; top: 0;
+                  display: flex;
+                 flex-direction: column;
+                 justify-content: space-around;
+                 align-items: center;
+                 position: fixed;
+                top: 0;
+                z-index: 1;
             }
             #about{width: 100vw; height: 90vh;}
-            .logo{grid-area: logo; margin-top: 5em;}
-            .logo h2{ font-weight: bold; margin-top: 0; transition: all 0.8s ease-in-out}
-            .logo i{font-size: 8em; display: block; text-align: center; transition: all 1s ease-in-out; position: fixed; top: 20%; left: 47%}
-            .slide{font-size: 1em; color: #dfe6e9; opacity: 0.3; grid-area: slide;
-              cursor: pointer; position: relative; top: -5% }
+            .logo{text-align: center; position: sticky; top:0;  z-index: 1; height: 30vh;}
+            .logo h2{ font-weight: bold; transition: all 0.8s ease-in-out}
+            .logo i{font-size: 10em; display: block; transition: all 1s ease-in-out;
+                position: sticky; top: 0; z-index: 1;}
+            .slide{font-size: 1em; color: #dfe6e9; opacity: 0.3; position: fixed; top: 87vh; z-index: -999;}
             .slide h5{ font-family: 'Righteous', cursive; margin-bottom: 0}
             .slide i{ font-size: 3em; display: block; text-align: center; }
             #about img{width: 40vw; margin: 1em auto; height: 40vh; display: block; clip-path: ellipse(50% 20% at 50% 30%)}
-            #space{width: 100vw; height: 100vh; background-color: wheat;}
+            #space{width: 100%; height: 100vh; background-color: white}
 
 
 
@@ -65,7 +61,7 @@
                 
             ::-webkit-scrollbar{display: none}
 
-                svg{display: block; margin: 50px auto}
+                svg{display: block; margin: 50px auto;}
 
            
            
@@ -83,8 +79,8 @@
                     <h2>Antiques&House</h2>
             </div>
             <div class="slide">
-            <h5>slide down</h5>
-            <i class="fas fa-chevron-down"></i>
+                    <h5>slide down</h5>
+                    <i class="fas fa-chevron-down"></i>
             </div>
         </div>
 </div>
@@ -152,6 +148,7 @@
       console.log("%c hamad","color: red");
 
         const slide = document.querySelector(".slide");
+        const logo = document.querySelector(".logo");
         const logo1 = document.querySelector(".logo i");
         const text1 = document.querySelector(".logo h2");
         const text2 = document.querySelector(".slide h5");
@@ -169,31 +166,66 @@ var hig = window.innerHeight;
 main.style.height = hig +"px";
         window.addEventListener("load",function(){
 
+            if(window.scrollY < 100)
+            {
             setInterval(function(){
-                slide.style.cssText += "top: 5%; opacity: 1; transition: all 0.5s cubic-bezier(0.5,1.6,0.4,0.7);";
+                slide.style.cssText += "top: 90vh; opacity: 1; transition: all 0.5s cubic-bezier(0.5,1.6,0.4,0.7);";
 
                 setTimeout(function(){
-                    slide.style.cssText += "top: -5%; opacity: 0.3; transition: all 0.5s ease-out;";
+                    slide.style.cssText += "top: 87vh; opacity: 0.3; transition: all 0.5s ease-out;";
                 },2000);
             },4000);
+            }
             
         });
 
-        slide.addEventListener('click',function(){
-            main.style.cssText = "height: 10vh;";
-            slide.style.cssText ="opacity: 0;";
-                 logo1.style.cssText = "font-size: 3em; position: fixed; top: 1%; left: 48%; ";
-                  text1.style.cssText ="opacity: 0";
-        });
-
         window.addEventListener("scroll",function(){
-            console.log(about.offsetTop,window.scrollY,main.style.height);
+
             var minus = Math.ceil(window.innerHeight/12.5);
             var hig = about.offsetTop - window.scrollY;
             main.style.height = hig +"px";
+
+console.log(hig);
+
             if(window.scrollY >= about.offsetTop-minus)
             {
                 main.style.cssText = "height: 8vh; ";
+                logo1.style.cssText = "font-size: 4em;";
+                slide.style.cssText ="visibility: hidden;";
+                text1.style.cssText ="opacity: 0";
+                logo.style.cssText = "height: 6vh; margin-bottom: 17px;";
+               
+            }
+
+            else if(window.scrollY > 0 && window.scrollY <= 100)
+            {
+                logo1.style.cssText = "font-size: "+(hig/5)+"px;";
+            }
+
+            else if(window.scrollY > 100 && window.scrollY <= 300)
+            {
+                logo1.style.cssText = "font-size: "+(hig/4)+"px;";
+                slide.style.cssText ="visibility: hidden;";
+                text1.style.cssText ="opacity: 0";
+            }
+            else if(window.scrollY > 300 && window.scrollY <= 500)
+            {
+                logo1.style.cssText = "font-size: "+(hig/3)+"px;";
+                slide.style.cssText ="visibility: hidden;";
+                text1.style.cssText ="opacity: 0";
+            }
+            else if(window.scrollY > 500 && window.scrollY <= 600)
+            {
+                logo1.style.cssText = "font-size: "+(hig/3)+"px;";
+                slide.style.cssText ="visibility: hidden;";
+                text1.style.cssText ="opacity: 0";
+            }
+            else if(window.scrollY < 100)
+            {
+                logo1.style.cssText = "font-size: 10em;";
+                slide.style.cssText ="visibility: visible;";
+                text1.style.cssText ="opacity:1";
+                logo.style.cssText = "height: 30vh; margin-bottom: 20px;";
             }
         })
       
