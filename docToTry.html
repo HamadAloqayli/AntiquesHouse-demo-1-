@@ -190,7 +190,7 @@ console.log(hig);
             if(window.scrollY >= about.offsetTop-minus)
             {
                 main.style.cssText = "height: 8vh; ";
-                logo1.style.cssText = "font-size: 4em;";
+                logo1.style.cssText = "font-size: 4vw;";
                 slide.style.cssText ="visibility: hidden;";
                 text1.style.cssText ="opacity: 0";
                 logo.style.cssText = "height: 6vh; margin-bottom: 17px;";
@@ -199,30 +199,30 @@ console.log(hig);
 
             else if(window.scrollY > 0 && window.scrollY <= 100)
             {
-                logo1.style.cssText = "font-size: "+(hig/5)+"px;";
+                logo1.style.cssText = "font-size: "+(hig/25)+"vw;";
             }
 
             else if(window.scrollY > 100 && window.scrollY <= 300)
             {
-                logo1.style.cssText = "font-size: "+(hig/4)+"px;";
+                logo1.style.cssText = "font-size: "+(hig/24)+"vw;";
                 slide.style.cssText ="visibility: hidden;";
                 text1.style.cssText ="opacity: 0";
             }
             else if(window.scrollY > 300 && window.scrollY <= 500)
             {
-                logo1.style.cssText = "font-size: "+(hig/3)+"px;";
+                logo1.style.cssText = "font-size: "+(hig/23)+"vw;";
                 slide.style.cssText ="visibility: hidden;";
                 text1.style.cssText ="opacity: 0";
             }
             else if(window.scrollY > 500 && window.scrollY <= 600)
             {
-                logo1.style.cssText = "font-size: "+(hig/3)+"px;";
+                logo1.style.cssText = "font-size: "+(hig/23)+"vw;";
                 slide.style.cssText ="visibility: hidden;";
                 text1.style.cssText ="opacity: 0";
             }
             else if(window.scrollY < 100)
             {
-                logo1.style.cssText = "font-size: 10em;";
+                logo1.style.cssText = "font-size: 10vw;";
                 slide.style.cssText ="visibility: visible;";
                 text1.style.cssText ="opacity:1";
                 logo.style.cssText = "height: 30vh; margin-bottom: 20px;";

@@ -7,120 +7,102 @@
     <title>Document</title>
     <style>
 
-        *{
+        *
+        {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif;
         }
         body
         {
-            height: 100vh;
             width: 100%;
-        }
-        html { font-size: calc(1em + 1vw) }
-        .main
-        {
-            margin: 2.5vh auto;
-            width: 100%;
-            height: 95vh;
+            height: 100vh;;
             display: grid;
-            grid-template-columns: 1% 1fr 1fr 1%;
-            grid-template-rows: 1fr;
-            grid-template-areas:
-            ". leftSide rightSide .";
+            grid-template-columns: 30% 70%;
+            grid-template-rows: 15% 70% 15%;
+            grid-template-areas: 
+            "header header"
+            "aside section"
+            "footer footer";
         }
-        .leftSide
-        {
-            grid-area: leftSide;
-            background-color: white;
-        }
-        .leftSide h1
-        {
-            text-align: center;
-            margin-top: 2.5em;
-            font-weight: 600;
-            font-size: 4vw;
-        }
-        .leftSide form
-        {
-            width: 60%;
-            margin: 2em auto;
-        }
-        .leftSide form input
-        {
-            height: 3em;
-            width: 100%;
-            border: 0;
-            margin: 1em 0;
-            padding: 1em;
-            box-sizing: border-box;
-            background-color: rgb(231, 231, 231);
-        }
-
-        .leftSide form input[name="submit"]
-        {
-            background: linear-gradient(0deg, rgb(223, 8, 215),rgb(135, 14, 146),rgb(107, 9, 94));
-            color: rgba(255, 255, 255, 0.788);
-            font-weight: bold;
-        }
-        #spans
+        header,aside,section,footer
         {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            font-size: 1vw;
-            margin: 1em 0;
         }
-
-        .rightSide
+        header
         {
-            grid-area: rightSide;
-            background: linear-gradient(0deg, rgb(131, 5, 127),rgb(89, 10, 118),rgb(53, 26, 25));
-            border-radius: 0 20px 20px 0;
+            grid-area: header;
+            background-color: lightgreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        input[name="remember"]
+        aside
         {
-            height: 1vw !important;
-            width: 1vw !important;
-            background-color: white !important;
-            margin: 0.2em 0.5em !important;
-            color: white !important;
-
+            grid-area: aside;
+            background-color: lightsalmon;
+        }
+        section
+        {
+            grid-area: section;
+            background-color: lightblue;
+        }
+        footer
+        {
+            grid-area: footer;
+            background-color: lightslategray;
+        }
+        h3
+        {
+            display: none;   
         }
 
+        @media screen and (max-width: 768px){
+            
+            body
+        {
+            grid-template-columns: 1fr;
+            grid-template-rows: 10% 40% 40% 10%;
+            grid-template-areas: 
+            "header"
+            "aside"
+            "section"
+            "footer";
+        }
+        header
+        {
+            justify-content: space-between;
+            padding: 0 5vw;
+        }
+            h3
+            {
+                display: block;
+            }
+
+        }
+        
 
     </style>
 </head>
 <body>
 
-   <div class="main">
+<header>
+    <h1>Header</h1>
+    <h3>X</h3>
+</header>
 
-        <div class="leftSide">
-            <h1>Log In</h1>
-            
-            <form action="" method="">
-                <input type="email" name="email" placeholder="email">
-                <input type="password" name="password" placeholder="password">
-                <div id="spans">
-         <span><input type="checkbox" name="remember">Remember me</span>
-         <span>Forget password</span>
-                </div>
-                <input type="submit" name="submit" value="LOG IN">
-            </form>
-        </div>
-       
-        <div class="rightSide">
+<aside>
+    <h1>Aside</h1>
+</aside>
 
-        </div>
+<section>
+    <h1>Section</h1>
+</section>
 
-   </div>
-<p>test</p>
-    <script>
-        console.log("screenAvailHeight",screen.availHeight);
-        console.log("windowOuterHeight",window.outerHeight);
-        console.log("windowInnerHeight",window.innerHeight);
-        console.log("screenHeight",screen.height);
-        console.log("bodyHeight",document.body.clientHeight);
-    </script>
+<footer>
+    <h1>Footer</h1>
+</footer>
+    
 </body>
 </html>
