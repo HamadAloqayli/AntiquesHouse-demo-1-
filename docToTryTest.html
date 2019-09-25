@@ -14,7 +14,7 @@
         }
         body
         {
-            width: 100%;
+            width: 100vw;
             height: 100vh;;
             display: grid;
             grid-template-columns: 30% 70%;
@@ -24,9 +24,16 @@
             "aside section"
             "footer footer";
         }
-        header,aside,section,footer
+        header,footer
         {
             display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        aside,section
+        {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
@@ -57,7 +64,20 @@
         {
             display: none;   
         }
-
+        div
+        {
+            text-align: justify;
+            width: 80%;
+            
+        }
+        p
+        {
+            font-size: 20px;
+        }
+        div h1
+        {
+            text-align: center;
+        }
         @media screen and (max-width: 768px){
             
             body
@@ -93,16 +113,32 @@
 </header>
 
 <aside>
-    <h1>Aside</h1>
+    <div>
+        <h1>Aside</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate hic asperiores nesciunt et possimus, nobis dolores sequi rem, quis fuga eius praesentium qui dolor repudiandae reprehenderit earum, ullam maxime culpa enim error natus repellendus quod veniam ad. Officia, cumque! Facilis expedita aspernatur assumenda sunt enim unde tenetur laborum deserunt aliquid.</p>
+    
+    </div>
 </aside>
 
 <section>
-    <h1>Section</h1>
+    <div>
+        <h1>Section</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate hic asperiores nesciunt et possimus, nobis dolores sequi rem, quis fuga eius praesentium qui dolor repudiandae reprehenderit earum, ullam maxime culpa enim error natus repellendus quod veniam ad. Officia, cumque! Facilis expedita aspernatur assumenda sunt enim unde tenetur laborum deserunt aliquid.</p>
+    
+    </div>
 </section>
 
 <footer>
     <h1>Footer</h1>
 </footer>
     
+
+<script>
+    const bg = document.querySelector("section");
+    const bgStyle = getComputedStyle(bg);
+    console.log(bgStyle.getPropertyValue('background-color'));
+
+
+</script>
 </body>
 </html>

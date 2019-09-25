@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-size: 100%;
+            height: 700vh;
+            width: 100%;
+            font-family: 'Source Code Pro', monospace;
+        }
+        :root
+        {
+            --main-color: #721011;
+        }
+        .flexCenter
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header
+        {
+            height: 100vh;
+            width: 100%;
+            text-align: center;
+        }
+        #mainImg
+        {
+            height: 100vh;
+            width: 100%; 
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            position: absolute;
+            z-index: -1;
+            filter: grayscale(100%) brightness(20%);
+            background-attachment: fixed;
+        }
+        #mainTxt
+        {
+            display: flex;
+            flex-direction: column;
+                    }
+        header img
+        {
+            filter: brightness(50%);
+            width: 20vw;
+            height: 40vh;
+            margin: auto;
+        } 
+        header h1
+        {
+            color: var(--main-color);
+            margin-top: -10vh;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        nav
+        {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            color: var(--main-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav img
+        {
+            filter: brightness(50%);
+            clip-path: inset()
+        }
+
+       
+
+    </style>
+
+</head>
+<body>
+
+<header class="flexCenter">
+    <div id="mainImg"></div>
+        <div id="mainTxt">
+            <img src="img/logo1RemoveBG.png" alt="">
+            <h1>Antiques & Gifts</h1>
+        </div>
+</header>
+
+<nav>
+    <div class="navLeft">
+        <img src="img/logo1RemoveBG.png" alt="">
+    </div>
+    <div class="navRight">
+        <ul>
+            <li>About</li>
+            <li>Contact</li>
+            <li>Mail</li>
+        </ul>
+    </div>
+</nav>
+
+<section class="guid1">
+    <article></article>
+    <article></article>
+    <article></article>
+</section>
+<section class=""></section>
+<section class=""></section>
+<section class=""></section>
+<section class="guid2"></section>
+
+<footer>
+
+</footer>
+    
+</body>
+</html>
