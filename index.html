@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    // Add the new slick-theme.css if you want the default styling
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <!--     Fonts and icons     -->
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+
+
+<link href="/assets/css/material-kit.min.css?v=2.0.6" rel="stylesheet" />
+
+
+    <style>
+
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-size: 100%;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+        :root
+        {
+            --main-color: #721011;
+            --main-bg: url('img/mainImg2.jpg');
+            --main-ar-color: #bdc3c7;
+        }
+        .flexCenter
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header
+        {
+            height: 100vh;
+            width: 100%;
+            text-align: center;
+            font-family: 'Source Code Pro', monospace;
+        }
+        #mainBG
+        {
+            height: 100vh;
+            width: 100%; 
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            position: absolute;
+            z-index: -1;
+            filter: grayscale(100%) brightness(20%);
+            background-attachment: fixed;
+        }
+        #mainLOGO
+        {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.5);
+            width: 32em;
+            height: 35em;;
+
+        }
+        #mainLOGO img
+        {
+            filter: brightness(50%);
+            width: 40%;
+            height: 12vmax;
+            margin: auto;
+        } 
+        #mainLOGO h1
+        {
+            color: var(--main-color);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 2.5em;
+        }
+        nav
+        {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            color: var(--main-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 6vh;
+            
+            /* justify-content: space-between;
+            align-items: center; */
+        }
+        #navHolder
+        {
+            width: 100%;
+            height: 100%;
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            position: absolute;
+            z-index: -1;
+            filter: grayscale(100%) brightness(20%);
+            background-attachment: fixed;
+        }
+        nav img
+        {
+           position: absolute;
+           top: 0.3em;
+           right: 3em;
+           filter: brightness(50%);
+            width: 2.5em;
+            transition: all 1s ease-in-out;
+            opacity: 0;
+        }
+        .navMenu ul
+        {
+            display: flex;
+            justify-content: space-around;
+            width: 30vw;
+            list-style: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.5s ease-in-out;        
+        }
+        .navMenu a
+        {
+            color: var(--main-ar-color);
+            transition: all 0.2s ease-in-out;
+        }
+        .navMenu a:hover
+        {
+            color: var(--main-color);
+        }
+        .guid1
+        {
+            width: 100%;
+            height: 94vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .guid1 article
+        {
+            width: 30em;
+            height: 40em;
+            position: relative;
+            top: 0;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .articleHolder
+        {
+            height: 100%;
+            width: 100%;
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            filter: grayscale(100%) brightness(20%);
+            background-attachment: fixed;
+        }
+        .guid1 img
+        {
+            width: 100%;
+            height: 90%;
+            filter: grayscale(100%);
+            transition: all 0.3s ease-in-out;
+        }
+        .guid1 article:hover img
+        {
+            filter: grayscale(0%);
+        }
+        .underImg
+        {
+            position: relative;
+            bottom: 0;
+            width: 100;
+            height: 10%;
+        }
+        .underImg span
+        {
+            transition: all 0.3s ease-in-out;
+        }  
+        .underImg i
+        {
+            transition: all 0.3s ease-in-out;
+
+        }
+        .guid1 span
+        {
+            font-size: 2em;
+            color: var(--main-ar-color);
+            text-align: center;
+            opacity: 1;
+        }
+        .guid1 i
+        {
+            position: absolute;
+            color: var(--main-ar-color);
+            font-size: 5em;
+            opacity: 0;
+
+        }
+        .slideSection
+        {
+            width: 100%;
+            height: 94vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            direction: ltr;            
+        }
+        .slideSection h1
+        {
+
+            font-size: 2.5em;
+            color: var(--main-ar-color);
+            margin: auto;
+        }
+        .slideSection span
+        {
+            font-size: 1em;
+            color: var(--main-ar-color);
+            margin: auto;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .slideSection span:hover
+        {
+            color: var(--main-color);
+            cursor: pointer;
+        }
+        #holdH1
+        {
+            position: relative;
+            padding: 10px 20px;
+        }
+        #holdH1 div
+        {
+            border-radius: 50px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            filter: grayscale(100%) brightness(20%);
+        }
+        #holdSpan
+        {
+            position: relative;
+            padding: 10px 20px;
+        }
+        #holdSpan div
+        {
+            border-radius: 50px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            filter: grayscale(100%) brightness(20%);
+        }
+        .slide-class
+        {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } 
+        .slide-class div
+        {
+            width: 100em;
+            height: 30em;
+            padding: 0.3%;
+            transition: all 0.5s ease-in-out;
+            margin-bottom: 3%;
+        }
+        .slide-class img
+        {
+            width: 100%;
+            height: 100%;
+            
+        }
+        .slick-prev:before, .slick-next:before
+        {
+            color: var(--main-color)
+        }
+        .slick-current
+        {
+            transform: scale(1.08);
+        }
+        hr.style13 
+        {
+	        height: 10px;
+     
+            margin: auto;
+	        border: 0;
+        	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+        }
+        hr {
+            border: 0;
+            margin: 1.35em auto;
+            max-width: 100%;
+            background-position: 50%;
+            box-sizing: border-box;
+        }
+        .accessory {
+             height: 6px;
+            background-image: radial-gradient(
+            closest-side,
+            hsla(0, 0%, 50%, 1.0),
+            hsla(0, 0%, 50%, 0) 100%);
+           position: relative;
+        }
+        footer
+        {
+            width: 100%;
+            height: 94vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 70% 30%;
+            grid-template-areas: 
+            "message location contact"
+            "subscribe follow contact";
+            color: var(--main-ar-color);
+        }
+        #footerHolder
+        {
+            width: 100%;
+            height: 94vh;
+            background-image: url('img/mainImg2.jpg');
+            background-size: cover;
+            position: absolute;
+            z-index: -1;
+            filter: grayscale(100%) brightness(20%);
+            background-attachment: fixed;
+        }
+        #message
+        {
+            grid-area: message;
+        }
+        #location
+        {
+            grid-area: location;
+        }
+        #contact
+        {
+            grid-area: contact;
+        }
+        #subscribe
+        {
+            grid-area: subscribe;
+        }
+        #follow
+        {
+            grid-area: follow;
+        }
+        #follow a
+        {
+            color: var(--main-ar-color);
+            transition: all 0.2s ease-in-out;
+        }
+        #follow a:hover
+        {
+            color: var(--main-color);
+        }
+        .holdSubFooter
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70%;
+            height: 100%;
+        }
+        .holdSubFooter img
+        {
+            width: 8em;
+            vertical-align: top;
+        }
+        .holdSubFooter span
+        {
+            font-size: 2em;
+            margin: 3.5vh;
+        }
+        .holdSubFooter p
+        {
+            text-align: justify;
+            font-size: 1em;
+        }
+        .btn.btn-primary
+        {
+            color: var(--main-ar-color);
+            background-color: var(--main-color);
+            border-color: var(--main-ar-color);
+            box-shadow: 0 2px 2px 0 #000, 0 3px 1px -2px #000, 0 1px 5px 0 #000;
+        }
+        .form-control, .is-focused .form-control
+        {
+            background-image: linear-gradient(0deg,var(--main-color) 2px,rgba(160, 36, 36, 0) 0),linear-gradient(0deg,#d2d2d2 1px,hsla(0,0%,82%,0) 0);
+        }
+        .btn.btn-primary:hover
+        {
+            color: var(--main-ar-color);
+            background-color: #630f10 !important;
+            border-color: #630f10 !important;
+            box-shadow: 0 2px 2px 0 #000, 0 3px 1px -2px #000, 0 1px 5px 0 #000;
+        }
+
+
+
+
+       @media screen and (max-width: 769px){
+           
+           body
+           {
+               font-size: 50%;
+               
+           }
+          
+       }
+
+       @media screen and (max-width: 481px){
+           
+           body
+           {
+               font-size: 30%;
+           }
+
+       }
+
+    </style>
+
+</head>
+<body>
+
+<header class="flexCenter">
+    <div id="mainBG"></div>
+        <div id="mainLOGO">
+            <img src="img/logo1RemoveBG.png" alt="">
+            <h1>Antiques & Gifts</h1>
+        </div>
+</header>
+
+<nav>
+    <div id="navHolder"></div>
+
+    <img src="img/logo1RemoveBG.png" alt="">
+       
+        <div class="navMenu">
+            <ul>
+                <a href=""><li>تحف قديمة</li></a>
+                <a href=""><li>تحف جديدة</li></a>
+                <a href=""><li>منوعة</li></a>
+            </ul>
+        </div>
+
+</nav>
+
+<section class="guid1">
+    <article>
+        <div class="articleHolder"></div>
+            <img src="img/oldImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>تحف قديمة</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+       
+    </article>
+
+    <article>
+            <div class="articleHolder"></div>
+            <img src="img/newImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>تحف جديدة</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+    </article>
+
+    <article>
+            <div class="articleHolder"></div>
+            <img src="img/randomImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>منوعة</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+        
+    </article>
+</section>
+
+<hr class="style13">
+
+                                                     <!--old section-->
+<section class="slideSection">
+    <div id="holdH1">
+        <div></div>
+        <h1>تحف قديمة</h1>
+    </div>
+
+       
+            <div class="slide-class">
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/logo1.jpg" alt=""></div>
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/oldImg.jpg" alt=""></div>
+                <div><img src="img/randomImg.jpg" alt=""></div>
+            </div>
+   
+    <div id="holdSpan">
+        <div></div>
+        <span>المزيد</span>
+    </div>
+</section>
+
+<hr class="accessory">
+
+                                                    <!--new section-->
+<section class="slideSection">
+    <div id="holdH1">
+        <div></div>
+        <h1>تحف جديدة</h1>
+    </div>
+
+       
+            <div class="slide-class">
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/logo1.jpg" alt=""></div>
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/oldImg.jpg" alt=""></div>
+                <div><img src="img/randomImg.jpg" alt=""></div>
+            </div>
+   
+    <div id="holdSpan">
+        <div></div>
+        <span>المزيد</span>
+    </div>
+</section>
+
+<hr class="accessory">
+
+                                                    <!--random section-->
+<section class="slideSection">
+    <div id="holdH1">
+        <div></div>
+        <h1>منوعة</h1>
+    </div>
+
+       
+            <div class="slide-class">
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/logo1.jpg" alt=""></div>
+                <div><img src="img/60600.jpg" alt=""></div>
+                <div><img src="img/oldImg.jpg" alt=""></div>
+                <div><img src="img/randomImg.jpg" alt=""></div>
+            </div>
+   
+    <div id="holdSpan">
+        <div></div>
+        <span>المزيد</span>
+    </div>
+</section>
+
+<hr class="style13">
+
+<section class="guid1">
+    <article>
+        <div class="articleHolder"></div>
+            <img src="img/oldImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>تحف قديمة</span>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+       
+    </article>
+
+    <article>
+            <div class="articleHolder"></div>
+            <img src="img/newImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>تحف جديدة</span>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+    </article>
+
+    <article>
+            <div class="articleHolder"></div>
+            <img src="img/randomImg.jpg" alt="">
+                <div class="underImg flexCenter">
+                    <span>منوعة</span>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+        
+    </article>
+</section>
+
+<footer>
+      <div id="footerHolder"></div>
+                                                                            <!-- message -->
+    <div id="message" class="flexCenter">
+        <div class="holdSubFooter">
+            <img src="img/message.svg" alt="">
+            <span>عن المؤسسة</span>
+            <p>
+                انطلقت البوابة العربية للأخبار التقنية في شهر سبتمبر عام 2005 من مقرها في مدينة دبي للإعلام،  كأول مصدر رسمي مكرَّس بالكامل لتغطية الأخبار التقنية باللغة العربية، على الساحتين العربية والعالمية، وذلك وفق رؤية طموحة بأن تكون المصدر الأول لأخبار تكنولوجيا المعلومات على شبكة الإنترنت، بالنسبة لكل من وسائل الإعلام العربية، والمستخدم الأخير في العالم العربي.
+            </p>
+        </div>
+    </div>
+                                                                            <!-- location -->
+    <div id="location" class="flexCenter">
+        <div class="holdSubFooter">
+            <img src="img/location.svg" alt="">
+            <span>موقعنا</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fugit, aperiam deleniti sapiente nulla aliquam quisquam perferendis laboriosam temporibus provident veniam exercitationem pariatur impedit reprehenderit quo, vero doloremque eligendi explicabo atque, maxime ea facilis necessitatibus delectus? Ullam, possimus quasi consequatur qui soluta, molestiae omnis nisi, sint numquam at recusandae molestias.</p>
+        </div>    
+    </div>
+                                                                            <!-- contact -->
+    <div id="contact" class="flexCenter">
+           <div class="holdSubFooter">
+                <img src="img/contact.svg" alt="">
+                <span>تواصل معنا</span>
+                    <form action="" method="">
+                        <input type="text" class="form-control" placeholder="الاسم">
+                        <br>
+                        <input type="email" class="form-control" placeholder="البريد الالكتروني">
+                        <br>
+                        <input type="text" class="form-control" placeholder="عنوان الرسالة">
+                        <br>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="الرسالة"></textarea>
+                        <br>
+                        <button class="btn btn-primary" style="font-size: 1.6em; padding: 5px 15px;">ارسال<div class="ripple-container"></div></button>
+                    </form>
+           </div>
+    </div>
+                                                                           <!-- subscribe -->
+    <div id="subscribe" class="flexCenter">
+           <div class="holdSubFooter">
+                <img src="img/subscribe.svg" alt="" style=" width: 4em;">
+                <span>ليصلك كل جديد</span>
+                <form action="" method="" style="position: relative; top: -20%; display: flex; align-items: flex-start">
+                    <input type="email" class="form-control" placeholder="البريد الالكتروني">
+                    <button class="btn btn-primary" style="font-size: 1em; padding: 5px 10px; position: absolute;bottom: 20%; left: -17%;">ارسال<div class="ripple-container" ></div></button>
+                </form>
+           </div>
+    </div>
+                                                                           <!-- follow -->
+    <div id="follow" class="flexCenter">
+           <div class="holdSubFooter">
+                <img src="img/follow.svg" alt="" style=" width: 4em;">
+                <span>تابعانا</span>
+                <div style="width: 30%; display: flex; justify-content: space-around;">
+                    <a href=""><i class="fab fa-facebook"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                </div>
+           </div>
+    </div>
+
+</footer>
+    
+
+<!-- <script src="js/jquery-3.4.1.min.js" type="text/javascript"></script> -->
+<!--   Core JS Files   -->
+<script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<script src="assets/js/plugins/moment.min.js"></script>
+<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+
+<script>
+
+$('.slide-class').slick({
+    centerMode: true,
+  centerPadding: '3%',
+  slidesToShow: 3,
+  dots: true,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  infinite: true,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '3%',
+        slidesToShow: 3,
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        infinite: true,
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '3%',
+        slidesToShow: 1,
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        infinite: true,
+      }
+    }
+  ]
+});
+
+
+const navHolder = document.querySelector('#navHolder');
+const nav = document.querySelector('nav');
+const navImg = document.querySelector('nav img');
+const navUl = document.querySelector('.navMenu ul');
+const article = document.querySelectorAll(".guid1 article");
+var btn = document.querySelectorAll('.btn.btn-primary');
+
+var leftMenu = false;
+for(let i=0; i<btn.length; i++)
+    btn[i].addEventListener('focus',function(){
+        btn[i].style.cssText = "color: var(--main-ar-color);\
+                background-color: #630f10;\
+                border-color: #630f10;\
+                box-shadow: 0 2px 2px 0 #000, 0 3px 1px -2px #000, 0 1px 5px 0 #000;\
+                font-size: 1.6em; padding: 5px 15px;";
+                
+                if(i == 1)
+                    btn[i].style.cssText += "font-size: 1em; padding: 5px 10px; position: absolute;bottom: 20%; left: -17%";
+      });
+for(let i=0; i<btn.length; i++)
+    btn[i].addEventListener('blur',function(){
+            btn[i].style.cssText = "color: var(--main-ar-color);\
+                background-color: var(--main-color);\
+                border-color: var(--main-color);\
+                box-shadow: 0 2px 2px 0 #000, 0 3px 1px -2px #000, 0 1px 5px 0 #000;\
+                font-size: 1.6em; padding: 5px 15px;";
+
+                if(i == 1)
+                    btn[i].style.cssText += "font-size: 1em; padding: 5px 10px; position: absolute;bottom: 20%; left: -17%";
+        });
+
+
+window.addEventListener('scroll',function(){
+
+    if(window.scrollY >= 700 && leftMenu == false)
+    {
+        leftMenu = true;
+        navImg.style.opacity = "1";
+        navUl.style.opacity = "0";
+
+        setTimeout(function(){
+
+            nav.style.cssText = "justify-content: flex-end; align-items: flex-end;";
+            navUl.style.opacity = "1";
+
+        },1000);
+
+        
+    }
+    else if(window.scrollY < 700 && leftMenu == true)
+    {
+        leftMenu = false;
+        navImg.style.opacity = "0";
+        navUl.style.opacity = "0";
+
+        
+
+        setTimeout(function(){
+            nav.style.cssText = "justify-content: center; align-items: flex-end;";
+            navUl.style.opacity = "1";
+
+        },1000);
+
+
+        
+    }
+    
+});
+
+for(let i = 0; i < article.length; i++)
+    article[i].addEventListener("mouseenter",function(){
+        this.addEventListener("mouseleave",function(){
+
+        this.children[2].children[0].style.opacity = "1";
+        this.children[2].children[1].style.opacity = "0";
+        this.style.cssText = "top: 0px";
+        });
+        this.children[2].children[0].style.opacity = "0";
+        this.children[2].children[1].style.opacity = "1";
+        this.style.cssText = "top: -20px; box-shadow: 0px 20px 20px 0px rgba(0,0,0,0.75)";
+    });
+
+</script>
+</body>
+</html>

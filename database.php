@@ -2,9 +2,9 @@
 <?php
 
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'mydb';
+$user = 'id11154632_root123';
+$pass = 'root123';
+$db = 'id11154632_mydb';
 
 $con = mysqli_connect($host,$user,$pass,$db);
 
