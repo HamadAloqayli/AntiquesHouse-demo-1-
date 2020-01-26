@@ -103,22 +103,6 @@ $result_ItemCart = mysqli_query($con,$sql_ItemCart);
   </div>
   
 
-<div class="iconHeader">
-		<a href="cartPage.php"> <i class="fas fa-shopping-cart mr-4 <?php if(mysqli_num_rows($result_ItemCart) > 0 ) echo "goldColor" ?>"></i> </a>
-		<i class="fab fa-facebook"></i>
-		<i class="fab fa-instagram"></i>
-		<i class="fab fa-twitter"></i>
-		<i class="fab fa-google-plus"></i>
-</div>
-
-
-<?php		if ($_SESSION['role'] == 'worker' && mysqli_num_rows($result_Comment) > 0){
-			
-			echo " <i class='fas fa-bell text-warning'></i> <span class='ml-1 text-warning'> ".mysqli_num_rows($result_Comment)." </span>";
-
-			}
-			?>
-<a class="signOut text-uppercase font-weight-bold ml-5" href="check.php"><i class="fas fa-sign-out-alt"></i></a>
 
 </nav>
 
@@ -153,8 +137,8 @@ $result_ItemCart = mysqli_query($con,$sql_ItemCart);
 			<th scope="col">Name</th>
 			<th scope="col">Email</th>
 			<th scope="col">Image</th>
-      <th scope="col">Title</th>
-      <th scope="col">Price</th>
+			<th scope="col">Title</th>
+			<th scope="col">Price</th>
     </tr>
   </thead>
   <tbody>

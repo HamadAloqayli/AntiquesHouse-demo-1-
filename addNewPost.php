@@ -2,8 +2,52 @@
 
 include "database.php";
 
-if(!empty($_FILES['imageAdd']['name']))
+session_start();
+
+$arLetters = '\x{0621}-\x{063A}\x{0641}-\x{064A}';
+
+if(isset($_COOKIE['role']))
 {
+  $_SESSION['id'] = $_COOKIE['id'];
+  $_SESSION['name'] = $_COOKIE['name'];
+  $_SESSION['email'] = $_COOKIE['email'];
+  $_SESSION['role'] = $_COOKIE['role'];
+}
+if(!isset($_SESSION['role']))
+{
+    header("Location:Home.php");
+    mysqli_close($con);
+    session_destroy();
+    exit();
+}
+// check if employee did not submit or if submit file has an error or it is empty
+if(!isset($_POST['submit']) || $_FILES['imageAdd']['error'] != 0 || empty($_FILES['imageAdd']['name']))
+{
+    header("Location:Post.php?errorInSubmitOrUpload");
+    mysqli_close($con);
+    exit();
+}
+// check product name has no number or no special char
+if(!preg_match('/^[a-zA-Z\s]+$/', $_POST['titleAdd']) && !preg_match("/^[$arLetters\s]+$/u", $_POST['titleAdd']))
+{
+    header("Location:Post.php?errorInProductName");
+    mysqli_close($con);
+    exit();
+}
+// check product description has no number or no special char
+if(!preg_match('/^[a-zA-Z\s]+$/', $_POST['descriptionAdd']) && !preg_match("/^[$arLetters\s]+$/u", $_POST['descriptionAdd']))
+{
+    header("Location:Post.php?errorInProductDescription");
+    mysqli_close($con);
+    exit();
+}
+// check product price has only numbers
+if(!preg_match('/^[0-9]+$/', $_POST['priceAdd']))
+{
+    header("Location:Post.php?errorInProductPrice");
+    mysqli_close($con);
+    exit();
+}
 
 $img = $_FILES['imageAdd']['name'];
 $target="savedImg/".basename($_FILES['imageAdd']['name']);
@@ -19,17 +63,10 @@ mysqli_query($con,$sqlAddPost);
 
 move_uploaded_file($_FILES['imageAdd']['tmp_name'],$target);
 
-header("Location:modifyPost.php?sucsses=SUCSSESFULY ADDED!");
-
-}
-else {
-    header("Location:modifyPost.php?sucsses= SORRY!");
-}
+header("Location:Post.php?success");
 
 mysqli_close($con);
 
-
-
-
+exit();
 
 ?>

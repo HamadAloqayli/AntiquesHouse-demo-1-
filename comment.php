@@ -1,192 +1,212 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['email'])) {
-	header("Location:signIn.php?error=SignIn First!");
-}
-
 include "database.php";
 
-$empId = $_SESSION['id'];
+session_start();
 
-$sql_Comment = " SELECT status FROM comment WHERE status = 1 ";
-
-$sql_ItemCart = " SELECT image,title,text,price 
-									FROM post
-									 WHERE post.id IN ( SELECT orderr.Pid
-									 										FROM orderr,employee
-																		 WHERE $empId = orderr.Eid AND orderr.status = 1 ) AND NOT EXISTS ( SELECT * FROM orderr WHERE post.id = orderr.Pid AND status = 2 ) ";
-
-$sql_ShowComment = " SELECT * FROM comment ORDER BY id DESC ";
-$sql_Order = " SELECT status FROM orderr WHERE status = 2 ";
-
-$result_ShowComment = mysqli_query($con,$sql_ShowComment);
-$result_Order = mysqli_query($con,$sql_Order);
-$result_Comment = mysqli_query($con,$sql_Comment);
-$result_ItemCart = mysqli_query($con,$sql_ItemCart);
-
-
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>home</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css?ts=<?=time()?>">
-	<style>
-	
-	#Container .mix{ display: none;}
-
-	</style>
-</head>
-<body>
-
-
-		<nav class="navbar navbar-dark bg-dark navbar-expand-lg mt-5 stickyBar">
-
-							<span class="headerName text-uppercase font-weight-bold"> <?php  
-											echo $_SESSION['name'];
-										?></span>
-										    <ul class="navbar-nav">
-
-<li class="nav-item dropdown mt-1">
-	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<?php
-		if ($_SESSION['role'] == 'admin') {
-			echo "<i class='fas fa-desktop'></i>";
-		}
-		else {
-			echo "<i class='fas fa-desktop'></i>";
-		}
-
-?>
-	</a>
-	<div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown">
-
-<?php
-		if ($_SESSION['role'] == 'admin') {
-			echo "  <a class='dropdown-item' href='modify.php'>Modify workers</a>
-					<a class='dropdown-item' href='#'>Another action</a>";
-		}
-		else {
-			echo "  <a class='dropdown-item' href='modifyPost.php'>Modify posts</a>
-					<a class='dropdown-item' href='comment.php'>View comments</a>";
-		}
-
-?>
-
-	</div>
-</li>
-</ul>
-
-<?php 
-if ($_SESSION['role'] == 'worker'){
-echo "
-<a href='orderPage.php' class='text-d' > <i class='fas fa-star starIcon"; if (mysqli_num_rows($result_Order) > 0) echo " text-warning"; echo " '></i>"; if (mysqli_num_rows($result_Order) > 0) echo "<span class='text-warning'> " .mysqli_num_rows($result_Order). "   </span>"; echo"</a>
-";
+if(isset($_COOKIE['role']))
+{
+  $_SESSION['id'] = $_COOKIE['id'];
+  $_SESSION['name'] = $_COOKIE['name'];
+  $_SESSION['email'] = $_COOKIE['email'];
+  $_SESSION['role'] = $_COOKIE['role'];
 }
+if(!isset($_SESSION['role']))
+{
+    header("Location:Home.php");
+    mysqli_close($con);
+    session_destroy();
+    exit();
+}
+
+    $empId = $_SESSION['id'];
+
+    // $sql_Comment = " SELECT status FROM comment WHERE status = 1 ";
+
+    // $sql_ItemCart = " SELECT image,title,text,price 
+    //                                     FROM post
+    //                                      WHERE post.id IN ( SELECT orderr.Pid
+    //                                                                              FROM orderr,employee
+    //                                                                          WHERE $empId = orderr.Eid AND orderr.status = 1 ) AND NOT EXISTS ( SELECT * FROM orderr WHERE post.id = orderr.Pid AND status = 2 ) ";
+    
+    $sql_ShowComment = " SELECT * FROM comment ORDER BY id DESC ";
+    // $sql_Order = " SELECT status FROM orderr WHERE status = 2 ";
+    
+    $result_ShowComment = mysqli_query($con,$sql_ShowComment);
+    // $result_Order = mysqli_query($con,$sql_Order);
+    // $result_Comment = mysqli_query($con,$sql_Comment);
+    // $result_ItemCart = mysqli_query($con,$sql_ItemCart);
+
 ?>
-  <a class="navbar-brand headerBrand" href="home.php">Antiques&House</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Sal.js CSS -->
+    <link rel="stylesheet" href="sal-master/dist/sal.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css?ts=<?=time()?>">
+
+    <title>Home</title>
+  </head>
+  <body>
 
 
-  </div>
-  
+                                                      <!-- Header and Nav section -->
+<div id="header" style="height: 4rem; position: fixed; top: 0; z-index: 10;">
+  <div class="mainBg"></div>
 
-<div class="iconHeader">
-		<a href="cartPage.php"> <i class="fas fa-shopping-cart <?php if(mysqli_num_rows($result_ItemCart) > 0 ) echo "text-warning" ?>"></i> <span class="text-warning mr-3"> <?php if(mysqli_num_rows($result_ItemCart) > 0) echo mysqli_num_rows($result_ItemCart) ?> </span> </a>
-		<i class="fab fa-facebook"></i>
-		<i class="fab fa-instagram"></i>
-		<i class="fab fa-twitter"></i>
-		<i class="fab fa-google-plus"></i>
+  <div class="container holdNav">
+  <div class="row">
+            <nav class="col-md-8 col-sm-10 col-12 offset-md-2 offset-sm-1">
+            <?php
+          
+            if(isset($_SESSION['phone']))
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<span>USER</span>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin')
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span>لوحة التحكم</span>
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="Order.php">الطلبات</a>
+                      <a class="dropdown-item" href="Comment.php">التعليقات</a>
+                      <a class="dropdown-item" href="Post.php">إدارة المنتجات</a>
+                      <a class="dropdown-item" href="Worker.php">إضافة موظف</a>
+                      <a class="dropdown-item" href="Cart.php">طلباتي</a>
+                    </div>
+                  </div>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else if(isset($_SESSION['role']) && $_SESSION['role'] == 'worker')
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,10">
+                      <span>لوحة التحكم</span>
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuLink">
+                        <div class="mainBg"></div>
+                      <a class="dropdown-item" href="Home.php">الرئيسية</a>
+                      <a class="dropdown-item" href="Order.php">الطلبات</a>
+                      <a class="dropdown-item activeLink" href="#">التعليقات</a>
+                      <a class="dropdown-item" href="Post.php">إدارة المنتجات</a>
+                      <a class="dropdown-item" href="Cart.php">طلباتي</a>
+                    </div>
+                  </div>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else
+            {
+              echo '<a href="Register.php" class="mx-auto"><span>تسجيل الدخول</span></a>';
+            }
+            
+            
+            ?>
+            </nav>
+         </div>
+    </div>
+</div>
+                                                            <!-- Title section -->
+
+<div class="container">
+    <div class="title section rounded-lg">
+            <div class="mainBg rounded-lg"></div>
+          <img src="img/aLogo.png" alt="" data-sal="fade" data-sal-duration="800" data-sal-delay="300" data-sal-easing="ease-out">
+          <h1 data-sal="fade" data-sal-duration="800" data-sal-delay="600" data-sal-easing="ease-out">Antique & Gifts</h1>
+    </div>
 </div>
 
+                                                            <!-- Comment section -->
+<div class="container section">
 
-<?php		if ($_SESSION['role'] == 'worker' && mysqli_num_rows($result_Comment) > 0){
-			
-			echo " <i class='fas fa-bell text-warning'></i> <span class='ml-1 text-warning'> ".mysqli_num_rows($result_Comment)." </span>";
+<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-danger form-control readAll mb-4">تمت قراءه الكل</button>
 
-			}
-			?>
-<a class="signOut text-uppercase font-weight-bold ml-5" href="check.php"><i class="fas fa-sign-out-alt"></i></a>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header flex-row-reverse">
+        <h5 class="modal-title" id="exampleModalLabel">تأكيد عمليه القراءه</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger form-control delPost" data-dismiss="modal">الغاء</button>
+        <button type="button" class="btn btn-outline-danger form-control position-relative delPost"><a href="#" onclick="confirmeReadComment()" class="stretched-link">قراءه</a></button>
+      </div>
+    </div>
+  </div>
+</div>
 
-</nav>
+<div class="showTable mx-auto text-center table-responsive" style="direction: rtl;">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"> </th>
+          <th scope="col">عنوان الرساله</th>
+          <th scope="col">نص الرساله</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+          <?php
+          $i=0;
+          if(mysqli_num_rows($result_ShowComment) > 0){
+          while ($row = mysqli_fetch_array($result_ShowComment)) {
+            ?>
+          
+        <tr>
+        
+          <td style="font-size: 12px;"><?php if($row['status'] == '1') echo "<i class='fas fa-circle hideIconComment' data='disIcon' style='color: var(--main-en-color)'></i>"; ?></td>
+          <td><?php echo $row['title'] ?></td>
+          <td><?php echo $row['text'] ?></td>
+          
+        </tr>
+    
+        <?php
+          } }
+          else
+            echo "sorry no data";
+        ?>
+    
+      </tbody>
+    </table>
+</div>
 
+</div>
+            
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/882f4098ed.js" crossorigin="anonymous"></script>
 
-	<div class="container">
+<!-- MixitUp -->
+<script src="mixitup-3/dist/mixitup.min.js"></script>
 
-				<div class="message">
+ <!-- Sal.js -->
+<script src="sal-master/dist/sal.js"></script>
 
-<?php
-		if (isset($_GET['sucsses'])) {
-
-	echo "<div class='alert alert-success text-center mt-5 mx-auto w-25' role='alert'>
-
-									". $_GET['sucsses']."
-												
-	</div>";
-		}
-?>
-
-</div>		
-
-
-<button type="button" class="btn btn-info" onclick="confirmeRead()">Read All</button>
-
-<br>
-<br>
-
-<table class="table">
-  <thead>
-    <tr>
-			<th scope="col"> </th>
-      <th scope="col">Title</th>
-      <th scope="col">Text</th>
-    </tr>
-  </thead>
-  <tbody>
-
-	  <?php
-	  $i=0;
-	  while ($row = mysqli_fetch_array($result_ShowComment)) {
-		?>
-	  
-    <tr>
-	
-		<td style="font-size: 12px;"><?php if($row['status'] == '1') echo "<i class='fas fa-circle text-primary hideIcon' data='disIcon'></i>"; ?></td>
-      <td><?php echo $row['title'] ?></td>
-      <td><?php echo $row['text'] ?></td>
-	  
-    </tr>
-
-	<?php
-	  }
-	?>
-
-  </tbody>
-</table>
-
-
-
-					</div>
-<script
-  src="https://code.jquery.com/jquery-3.1.0.js"
-  integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<script src="js/frames/jquery.mixitup.js"></script>
-<script type="text/javascript" src="js/script.js?ts=<?=time()?>"></script>
+ <!-- JS -->
+ <script src="js/script.js?ts=<?=time()?>"></script>
 </body>
 </html>

@@ -1,81 +1,183 @@
-
-$('.container').mixItUp();
-
-   
-//==========================
-
-function sendDateComment()
+                    // Sal.js
+try
 {
-    var now = new Date();
-    var comment = document.getElementById("dateComment");
-
-    comment.value = now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
-
+sal();
 }
-function confirmSell()
+catch{}
+                    // MixitUp
+try
 {
-    let check = confirm('are you sure ?');
+var mixer = mixitup('#Container');
+}
+catch{}
+
+
+
+// Fix sal for Guid
+
+const article = document.querySelectorAll('.article');
+
+window.addEventListener('scroll',articleTransition);
+window.addEventListener('load',articleTransition);
+
+function articleTransition()
+{
+    try
+    {
+    if(article[0].classList.contains('sal-animate'))
+    {
+        setTimeout(function(){
+            for(let i = 0; i < 3; i++)
+            article[i].style.cssText += "transition: all 0.3s ease-in-out !important;";
+
+        },1000);
+    }
+    if(article[3].classList.contains('sal-animate'))
+    {
+        setTimeout(function(){
+            for(let i = 3; i < 6; i++)
+            article[i].style.cssText += "transition: all 0.3s ease-in-out !important;";
+
+        },1000);
+    }
+    }
+    catch{}
+}
+
+// Guid article movment
+
+for(let i = 0; i < article.length; i++)
+{
+    article[i].addEventListener('mouseenter',changeContent);
+    article[i].addEventListener('mouseleave',returnContent);
+}
+
+    function changeContent()
+    {
+        this.children[2].children[0].style.opacity = "0";
+        this.children[2].children[1].style.opacity = "1";
+    }
+    function returnContent()
+    {
+        this.children[2].children[0].style.opacity = "1";
+        this.children[2].children[1].style.opacity = "0";
+    }
+
+// coverHalf movment
+
+const coverHalf = document.querySelector('.coverHalf');
+const coverState = document.querySelector('#coverState');
+try
+{
+coverState.addEventListener('click',function(){
+
+    if(coverState.textContent == 'انشاء حساب')
+    {
+        coverHalf.style.cssText = "right: 50%;";
+        
+        setTimeout(function(){
+            coverHalf.children[2].innerHTML = "تسجيل الدخول";
+            coverHalf.children[1].src = "img/loginIcon.svg";
+        },1000);
+    }
+    else
+    {
+        coverHalf.style.cssText = "right: 0;";
+        
+        setTimeout(function(){
+            coverHalf.children[2].innerHTML = "انشاء حساب";
+            coverHalf.children[1].src = "img/registerIcon.svg";
+        },1000);
+    }
+});
+}
+catch{}
+
+// check input form validity
+
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+   
+// change color by click on mixbar shop section
+
+const btnsShop = document.querySelectorAll('.mixBar div button');
+var btnsShopArray = Array.prototype.slice.call(btnsShop);
+
+for(let i=0; i < btnsShop.length; i++)
+btnsShop[i].addEventListener('click',function(e){
+
+    var clickedBtn = btnsShopArray.indexOf(this);
+    this.style.color = "var(--main-en-color)";
+
     
-        if(check == true)
+        if(clickedBtn >= 0 && clickedBtn <= 3)
         {
-            location.href = "finalStage.php";
+            for(let i = 0; i < 4; i++)
+            {
+                if(i != clickedBtn)
+                    btnsShop[i].style.color = "var(--main-ar-color)";
+            }
+
         }
-}
+        else
+        {
+            for(let i = 4; i < 6; i++)
+            {
+                if(i != clickedBtn)
+                    btnsShop[i].style.color = "var(--main-ar-color)";
+            }
+        }
 
-function confirmeRead()
-{
-   let rus = confirm("are you sure ?");
-   
-   if (rus == true) {
+});
 
-        $('.hideIcon').hide();
-       location.href="changeStatus.php?read";
-       
+// move to shop page by click on 'more'
 
-   } 
-}
+    if(location.search == "?old")
+         btnsShopArray[2].click();
 
-function confirmeReadOrder()
-{
-    let rus = confirm("are you sure ?");
-   
-    if (rus == true) {
- 
-         $('.hideIconOrder').hide();
-        location.href="changeStatusOrder.php?readOrder";
-        
- 
-    } 
-}
+    else if(location.search == "?new")
+         btnsShopArray[1].click();
 
-function conDelete(id)
- {
-    
-    let req = confirm("are you sure ?");
-    if (req == true) {
-        
-        location.href=" deleteWorker.php?dWorker="+id;
+    else if(location.search == "?random")
+         btnsShopArray[0].click();
+
+// show add and edit post form
+
+const addPostBtn = document.querySelector('.addPost');
+const formAddDiv = document.querySelector('.formAdd');
+const formEditDiv = document.querySelector('.formEdit');
+const showTable = document.querySelector('.showTable');
+const editPostBtn = document.querySelectorAll('.toEdit');
+
+try{
+addPostBtn.addEventListener('click',function(e){
+console.log(addPostBtn.getAttribute('aria-expanded'));
+    if(addPostBtn.getAttribute('aria-expanded') == "false" || addPostBtn.getAttribute('aria-expanded') == null)
+    {
+        addPostBtn.innerHTML = "الغاء";
     }
-
-}
-
-function conDelete1(id)
- {
-    
-    let req = confirm("are you sure ?");
-    if (req == true) {
-        
-        location.href=" deletePost.php?dPost="+id;
+    else
+    {
+        addPostBtn.innerHTML = "اضافة منتج جديد";
     }
-
+});
 }
-
-function getEdit(id,name,email)
-{
-    document.getElementById('editEmail').value = email;
-    document.getElementById('editName').value = name;
-    document.getElementById('editId').value = id;
-}
+catch{}
 
 function getEdit1(id,title,text)
 {
@@ -83,85 +185,45 @@ function getEdit1(id,title,text)
     document.getElementById('editTitle').value = title;
     document.getElementById('editId').value = id;
 }
-/*function getValue(name)
+
+for(let i = 0; i < editPostBtn.length; i++){
+        editPostBtn[i].addEventListener('click',function(e){
+
+            if(formEditDiv.classList.contains('toggleOpacity'))
+            {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            setTimeout(function(){
+                formEditDiv.classList.add('toggleOpacity');
+                window.scrollTo(0, document.body.scrollHeight);
+            },500);
+
+        });
+    }
+
+// to confirm delete proccess
+
+const delModal = document.querySelector('.delPost a');
+
+function toDelete(id)
 {
-    
-}*/
+    delModal.href = "deletePost.php?dPost="+id;
+}
 
+// to confirm read comment proccess
 
+function confirmeReadComment()
+{
+       $('.hideIconComment').hide();
+       location.href="changeStatusComment.php?readComment";
+}
 
-$(document).ready(function(){
+// to confirm read order proccess
 
-    $(".holder").hover(
-        function()
-        {
-            $(this).find('.slideImg').animate({top:'-60px'});
-        },
-        function()
-        {
-            $(this).find('.slideImg').animate({top:'0px'});
-        }
-    );
-
-
-    $(".addWorker").click(function(){
-
-        let txt = $(".addWorker").text();
-        let txt1 = $(".addWorker").attr('data');
-
-            $(".formAdd").fadeToggle();
-            $(".addWorker").toggleClass("btn-danger");
-
-
-            if (txt == "cancle" && txt1 == "newWorker")
-            {
-                $(".addWorker").text("add Worker");
-            }
-            else if(txt == "cancle" && txt1 == 'newPost')
-            {
-                $(".addWorker").text("add new post");
-            }
-            else
-            {
-                $(".addWorker").text("cancle");
-            }
-            
-    });
-
-    $(".addComment").click(function(){
-
-        let txtC = $(".addComment").text();
-
-            $(".formAddC").fadeToggle();
-            $(".addComment").toggleClass("btn-danger");
-
-            if (txtC == "cancle")
-            {
-                $(".addComment").text("add comment");
-            }
-            else
-            {
-                $(".addComment").text("cancle");
-            }
-            
-    });
-
-    $('.toEdit').click(function(){
-       
-        $('.formEdit').fadeIn();
-
-    });
-    $('.toEdit').dblclick(function(){
-       
-        $('.formEdit').fadeOut();
-
-    });
-
-    $('.buttonCart').click(function(){
-
-        $('.cartImg').css('color','gold');
-        $('.cartImg').addClass('shake');
-        
-    });
-
-});
+function confirmeReadOrder()
+{   
+         $('.hideIconOrder').hide();
+        location.href="changeStatusOrder.php?readOrder"; 
+}

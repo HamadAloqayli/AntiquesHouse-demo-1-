@@ -1,176 +1,204 @@
 <?php
 
+include "database.php";
+
 session_start();
 
-if (!isset($_SESSION['email'])) {
-	header("Location:signIn.php?error=SignIn First!");
+if(!isset($_GET['idImg']))
+{
+    header('Location:Shop.php');
+    exit();
+}
+if(isset($_COOKIE['phone']))
+{
+  $_SESSION['id'] = $_COOKIE['id'];
+  $_SESSION['name'] = $_COOKIE['name'];
+  $_SESSION['email'] = $_COOKIE['email'];
+  $_SESSION['phone'] = $_COOKIE['phone'];
+}
+if(isset($_COOKIE['role']))
+{
+  $_SESSION['id'] = $_COOKIE['id'];
+  $_SESSION['name'] = $_COOKIE['name'];
+  $_SESSION['email'] = $_COOKIE['email'];
+  $_SESSION['role'] = $_COOKIE['role'];
 }
 
-include "database.php";
-$empId = $_SESSION['id'];
-$idImg = $_GET['idImg'];
+if(isset($_SESSION['id']))
+{
+    $empId = $_SESSION['id'];
+    $idImg = $_GET['idImg'];
 
-$sql_Item = " SELECT * FROM post WHERE id = ".$idImg." ";
-$sql_Comment = " SELECT status FROM comment WHERE status = 1 ";
-$sql_ItemCart = " SELECT image,title,text,price 
-									FROM post
-									 WHERE post.id IN ( SELECT orderr.Pid
-									 										FROM orderr,employee
-																		 WHERE $empId = orderr.Eid AND orderr.status = 1 ) AND NOT EXISTS ( SELECT * FROM orderr WHERE post.id = orderr.Pid AND status = 2 ) ";
+    $sql_Item = " SELECT * FROM post WHERE id = ".$idImg." ";
+    // $sql_Comment = " SELECT status FROM comment WHERE status = 1 ";
+    // $sql_ItemCart = " SELECT image,title,text,price 
+    //                                     FROM post
+    //                                      WHERE post.id IN ( SELECT orderr.Pid
+    //                                                                              FROM orderr,employee
+    //                                                                          WHERE $empId = orderr.Eid AND orderr.status = 1 ) AND NOT EXISTS ( SELECT * FROM orderr WHERE post.id = orderr.Pid AND status = 2 ) ";
+    
+    $result_Item = mysqli_query($con,$sql_Item);
+    // $result_Comment = mysqli_query($con,$sql_Comment);
+    // $result_ItemCart = mysqli_query($con,$sql_ItemCart);
+}
+else
+{
+    $idImg = $_GET['idImg'];
 
-$result_Item = mysqli_query($con,$sql_Item);
-$result_Comment = mysqli_query($con,$sql_Comment);
-$result_ItemCart = mysqli_query($con,$sql_ItemCart);
-
-echo $_GET["test2"]
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>home</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css?ts=<?=time()?>">
-	<style>
-	
-	#Container .mix{ display: none;}
-
-	</style>
-</head>
-<body>
-
-
-		<nav class="navbar navbar-dark bg-dark navbar-expand-lg mt-5 stickyBar">
-
-							<span class="headerName text-uppercase font-weight-bold"> <?php  
-											echo $_SESSION['name'];
-										?></span>
-										    <ul class="navbar-nav">
-
-<li class="nav-item dropdown mt-1">
-	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<?php
-		if ($_SESSION['role'] == 'admin') {
-			echo "<i class='fas fa-desktop'></i>";
-		}
-		else {
-			echo "<i class='fas fa-desktop'></i>";
-		}
-
-?>
-	</a>
-	<div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown">
-
-<?php
-		if ($_SESSION['role'] == 'admin') {
-			echo "  <a class='dropdown-item' href='modify.php'>Modify workers</a>
-					<a class='dropdown-item' href='#'>Another action</a>";
-		}
-		else {
-			echo "  <a class='dropdown-item' href='modifyPost.php'>Modify posts</a>
-					<a class='dropdown-item' href='comment.php'>View comments</a>";
-		}
+    $sql_Item = " SELECT * FROM post WHERE id = ".$idImg." ";
+    $result_Item = mysqli_query($con,$sql_Item);
+}
 
 ?>
 
-	</div>
-</li>
-</ul>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <a class="navbar-brand headerBrand" href="home.php">Antiques&House</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Sal.js CSS -->
+    <link rel="stylesheet" href="sal-master/dist/sal.css">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css?ts=<?=time()?>">
 
-  </div>
-  
+    <title>Home</title>
+  </head>
+  <body>
 
-<div class="iconHeader">
-<a href="cartPage.php"> <i class="fas fa-shopping-cart mr-4 <?php if(mysqli_num_rows($result_ItemCart) > 0 ) echo "goldColor" ?>"></i> </a>
-		<i class="fab fa-facebook"></i>
-		<i class="fab fa-instagram"></i>
-		<i class="fab fa-twitter"></i>
-		<i class="fab fa-google-plus"></i>
+                                                      <!-- Header and Nav section -->
+<div id="header" style="height: 4rem; position: fixed; top: 0; z-index: 10;">
+  <div class="mainBg"></div>
+
+  <div class="container holdNav">
+  <div class="row">
+            <nav class="col-md-8 col-sm-10 col-12 offset-md-2 offset-sm-1">
+            <?php
+          
+            if(isset($_SESSION['phone']))
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<span>USER</span>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin')
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span>لوحة التحكم</span>
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="Order.php">الطلبات</a>
+                      <a class="dropdown-item" href="Comment.php">التعليقات</a>
+                      <a class="dropdown-item" href="Post.php">إدارة المنتجات</a>
+                      <a class="dropdown-item" href="Worker.php">إضافة موظف</a>
+                      <a class="dropdown-item" href="Cart.php">طلباتي</a>
+                    </div>
+                  </div>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else if(isset($_SESSION['role']) && $_SESSION['role'] == 'worker')
+            {
+              $text = "مرحبا بك";
+              echo '<span> <span>'.$_SESSION['name'].' ،</span><span class="float-right">'.$text.'</span> </span>';
+              echo '<div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,10">
+                      <span>لوحة التحكم</span>
+                    </a>
+                  
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuLink">
+                        <div class="mainBg"></div>
+                      <a class="dropdown-item" href="Home.php">الرئيسية</a>
+                      <a class="dropdown-item" style="color: var(--main-en-color); cursor: default;" href="#">الطلبات</a>
+                      <a class="dropdown-item" href="Comment.php">التعليقات</a>
+                      <a class="dropdown-item" href="Post.php">إدارة المنتجات</a>
+                      <a class="dropdown-item" href="Cart.php">طلباتي</a>
+                    </div>
+                  </div>';
+              echo '<a href="checkAccount.php"><span>تسجيل الخروج</span></a>';
+            }
+            else
+            {
+              echo '<a href="Register.php" class="mx-auto"><span>تسجيل الدخول</span></a>';
+            }
+            
+            
+            ?>
+            </nav>
+         </div>
+    </div>
+</div>
+                                                            <!-- Title section -->
+
+<div class="container">
+    <div class="title section rounded-lg">
+            <div class="mainBg rounded-lg"></div>
+          <img src="img/aLogo.png" alt="" data-sal="fade" data-sal-duration="800" data-sal-delay="300" data-sal-easing="ease-out">
+          <h1 data-sal="fade" data-sal-duration="800" data-sal-delay="600" data-sal-easing="ease-out">Antique & Gifts</h1>
+    </div>
 </div>
 
-
-<?php		if ($_SESSION['role'] == 'worker' && mysqli_num_rows($result_Comment) > 0){
-			
-			echo " <i class='fas fa-bell text-warning'></i> <span class='ml-1 text-warning'> ".mysqli_num_rows($result_Comment)." </span>";
-
-			}
-			?>
-<a class="signOut text-uppercase font-weight-bold ml-5" href="check.php"><i class="fas fa-sign-out-alt"></i></a>
-
-</nav>
-
-<?php
-		if (isset($_GET['sucsses'])) {
-
-	echo "<div class='alert alert-success text-center mt-5 mx-auto w-25' role='alert'>
-
-									".$_GET['sucsses']."
-												
-	</div>";
-		}
-?>
-
-	<div class="container">
-
-            <div class="row">
-            
-            <div class="col-12 col-md-6">
-
-                <div class="leftSide">
-                    <?php $row = mysqli_fetch_array($result_Item)    ?>
+                                                            <!-- Detail section -->
+	<div class="container section mb-5">
+        <div class="row justify-content-center align-items-center">
+              <div class="leftDetail col-md-6 col-12 text-center mb-4">
+                    <?php 
+                    if(mysqli_num_rows($result_Item) > 0){
+                         $row = mysqli_fetch_array($result_Item)    ?>
 
                         <img src="savedImg/<?php echo $row['image'] ?>" alt="">
-                        <h3> <?php  echo $row['title']  ?> </h3>
-                        <p> <?php  echo $row['text']  ?> </p>
+              </div>
+                      
+              <div class="rightDetail col-md-6 col-12 text-right">
 
-                    
-                </div>
-
+                        <p> <b>الاسم:</b>  <?php  echo $row['title']  ?> </p><hr>
+                        <p> <b>الوصف:</b>  <?php  echo $row['text']  ?> </p><hr>
+                        <p> <b>الصنف:</b>  <?php  echo $row['category']  ?> </p><hr>
+                        <p> <b>السعر:</b>  <?php echo $row['price'] ?> ريال </p>
+              <form action="addToCart.php" method="post" enctype="multipart/form-data" class="text-center mt-5">
+                            <input type="hidden" value="<?php if(isset($_SESSION['id'])) echo $_SESSION['id']; ?>" name="empId">
+                            <input type="hidden" value="<?php if(isset($_SESSION['id'])) echo $row['id']; ?>" name="postId">
+                            <input type="hidden" value="<?php if(isset($idImg)) echo $idImg; ?>" name="imgId">
+                            <button type="submit" name="submit" class="btn btn-outline-danger submit">اضافه الى السلة</button>
+              </form>
+              <?php
+                    if(isset($_GET['errorInAdd']))
+                        echo '<span>عذرا... يجب عليك تسجيل الدخول اولا, <a href="Register.php">لتسجيل الدخول</a></span>';
+              
+              ?>       
             </div>
+        </div>
+        <?php   }
+        else
+          echo "sory no data";
+         ?>
 
-            <div class="col-12 col-md-6">
+    </div>
+    
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/882f4098ed.js" crossorigin="anonymous"></script>
 
-                        <div class="rightSide">
-                            <p> To buy this item add it to cart then we will contact with you... </p>
-                            <span> The payment method will be by transfare </span>
-                            <h6> The cost is <?php echo $row['price'] ?> </h6>
-                        </div>
+<!-- MixitUp -->
+<script src="mixitup-3/dist/mixitup.min.js"></script>
 
-		<form action="addToCart.php" method="post" enctype="multipart/form-data">
-									<input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="empId">
-									<input type="hidden" value="<?php echo $row['id']; ?>" name="postId">
-					<input type="submit" class="btn btn-success buttonCart" value="Add To Cart">
-			
-		</form>
-                        
-            </div>
-            
-            </div>
+ <!-- Sal.js -->
+<script src="sal-master/dist/sal.js"></script>
 
-
-
-	</div>
-<script
-  src="https://code.jquery.com/jquery-3.1.0.js"
-  integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<script src="js/frames/jquery.mixitup.js"></script>
-<script type="text/javascript" src="js/script.js?ts=<?=time()?>"></script>
+ <!-- JS -->
+ <script src="js/script.js?ts=<?=time()?>"></script>
 </body>
 </html>
