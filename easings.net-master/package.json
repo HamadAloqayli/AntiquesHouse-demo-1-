@@ -1,0 +1,76 @@
+{
+	"name": "easings.net",
+	"scripts": {
+		"start": "node ./start.js",
+		"build": "NODE_ENV=production node ./build.js",
+		"lint": "eslint --fix ./src/**/*.{ts,js} ./*.js"
+	},
+	"browserslist": [
+		"defaults",
+		"not ie 11",
+		"not ie_mob 11"
+	],
+	"postcss": {
+		"plugins": {
+			"postcss-pxtorem": {
+				"rootValue": 16,
+				"mediaQuery": true,
+				"propList": [
+					"font",
+					"font-size",
+					"line-height",
+					"letter-spacing",
+					"margin",
+					"padding"
+				]
+			},
+			"postcss-flexbugs-fixes": {},
+			"postcss-font-family-system-ui": {},
+			"autoprefixer": {}
+		}
+	},
+	"devDependencies": {
+		"@babel/core": "^7.0.0-0",
+		"@babel/preset-env": "^7.7.4",
+		"@typescript-eslint/eslint-plugin": "^2.10.0",
+		"@typescript-eslint/parser": "^2.10.0",
+		"autoprefixer": "^9.6.1",
+		"css-mqpacker": "^7.0.0",
+		"eslint": "^6.7.2",
+		"eslint-config-prettier": "^6.7.0",
+		"eslint-plugin-babel": "^5.3.0",
+		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-prettier": "^3.1.1",
+		"express": "^4.17.1",
+		"htmlnano": "^0.2.4",
+		"husky": "^3.0.4",
+		"js-yaml": "^3.13.1",
+		"lint-staged": "^9.2.3",
+		"mustache": "^3.0.1",
+		"parcel-bundler": "^1.12.3",
+		"postcss": "^7.0.17",
+		"postcss-flexbugs-fixes": "^4.1.0",
+		"postcss-font-family-system-ui": "^4.1.1",
+		"postcss-preset-env": "^6.7.0",
+		"postcss-pxtorem": "^4.0.1",
+		"posthtml": "^0.11.4",
+		"prettier": "^1.18.2",
+		"pug": "^2.0.4",
+		"terser": "^4.1.4",
+		"typescript": "^3.5.3"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts}": [
+			"eslint --fix",
+			"git add"
+		]
+	},
+	"dependencies": {
+		"focus-visible": "^5.0.2"
+	}
+}

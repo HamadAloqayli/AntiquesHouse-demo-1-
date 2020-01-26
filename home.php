@@ -174,21 +174,39 @@ echo "<a href='comment.php' class='text-d'> <i class='fas fa-bell text-warning m
 		</div>
 </div>
 <br>
-
+<br><br>
 
 <div id="Container" class="text-center">
 
-<?php   while ($row = mysqli_fetch_array($result_DisplayPost)) {  ?>
+<?php  $i=0;
+	 while ($row = mysqli_fetch_array($result_DisplayPost)) {  ?>
+	
+	<?php
+	if($i == 0|| $i == 3){
+		echo "<div class='row'>";
+		
+	}
+	?>
+		<div class="col-lg-4 col-md-6 col-12 mix <?php echo $row['category'] ?>" data-my-order="<?php echo $row['price'] ?>" >
+			<div class="holder mr-2 mb-5" style="width: 100% !important;">
+			<a href="detail.php?idImg=<?php echo $row['id'] ?>"><img class="slideImg" src="savedImg/<?php echo $row['image'] ?>" alt=""></a>
+				<div class="subHolder">
+					<h3> <?php echo $row['title'] ?> </h3>
+					<span> <?php echo $row['price']." SR" ?> </span>
+				</div>
+			</div> 
+		</div>
+	
+		<?php
+		
+	if($i == 2){
+		echo "</div>";
 
-	<div class="mix <?php echo $row['category'] ?>" data-my-order="<?php echo $row['price'] ?>">
-		<div class="holder mr-2 mb-5">
-		<a href="detail.php?idImg=<?php echo $row['id'] ?>"><img class="slideImg" src="savedImg/<?php echo $row['image'] ?>" alt=""></a>
-			<div class="subHolder">
-				<h3> <?php echo $row['title'] ?> </h3>
-				<span> <?php echo $row['price']." SR" ?> </span>
-			</div>
-		</div> 
-	</div>
+			$i=-1;
+	}
+
+	$i++;
+	?>
 
 <?php }       ?>
 

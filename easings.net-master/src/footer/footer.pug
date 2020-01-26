@@ -1,0 +1,15 @@
+include ../external-link/external-link
+
+mixin footer
+	.footer
+		.footer__group
+			.footer__copyright
+				+external-link("https://sitnik.ru/") {{ authors.sitnik }}
+				!= ` {{ covenant }} `
+				+external-link("https://solovev.one/") {{ authors.solovev }}
+
+			.footer__lang
+				ul(aria-label="Select language").
+					{{#langList}}
+						{{{.}}}
+					{{/langList}}
